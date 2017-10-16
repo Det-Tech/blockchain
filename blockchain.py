@@ -91,7 +91,7 @@ class Blockchain:
 
         return False
 
-    def new_block(self, proof: int, previous_hash: Optional[str]=None) -> Dict[str, Any]:
+    def new_block(self, proof: int, previous_hash: Optional[str]) -> Dict[str, Any]:
         """
         Create a new Block in the Blockchain
 
