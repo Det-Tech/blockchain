@@ -4,9 +4,8 @@ WORKDIR /app
 
 ENV BUILD_LIST git
 
-COPY blockchain.py Pipfile /app/
-
 RUN apk add --update $BUILD_LIST \
+    && git clone https://github.com/dvf/blockchain.git /app \
     && pip install pipenv \
     && pipenv --python=python3.6 \
     && pipenv install \
