@@ -25,7 +25,14 @@ class Blockchain:
         """
 
         parsed_url = urlparse(address)
-        self.nodes.add(parsed_url.netloc)
+        if parsed_url.netloc:
+            self.nodes.add(parsed_url.netloc)
+        elif parsed_url.path:
+            # Accepts an URL without scheme like '192.168.0.5:5000'.
+            self.nodes.add(parsed_url.path)
+        else:
+            raise ValueError('Invalid URL')
+
 
     def valid_chain(self, chain):
         """
@@ -149,8 +156,8 @@ class Blockchain:
     def proof_of_work(self, last_proof):
         """
         Simple Proof of Work Algorithm:
-         - Find a number p' such that hash(pp') contains leading 4 zeroes
-         - Where p is the previous proof, and p' is the new proof
+         - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
+         - p is the previous proof, and p' is the new proof
         """
 
         proof = 0
